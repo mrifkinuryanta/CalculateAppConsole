@@ -1,6 +1,12 @@
-import utils.CalculateAreaUtils
+import shape.Circle
+import shape.Rectangle
+import shape.Shape
+import shape.Triangle
+import utils.StarGeneratorUtils
 
 class App {
+    private var starGeneratorUtils = StarGeneratorUtils()
+
     companion object {
         @JvmStatic
         fun main(args: Array<String>) {
@@ -24,8 +30,9 @@ class App {
             1. Calculate Rectangle
             2. Calculate Circle
             3. Calculate Triangle Area
+            4. Print Stars
             ======================================
-            Enter menu ? (1/2/3)
+            Enter menu ? (1/2/3/4)
             ======================================
         """.trimIndent()
         )
@@ -42,6 +49,9 @@ class App {
             "3" -> {
                 openMenuTriangle()
             }
+            "4" -> {
+                openMenuPrintStars()
+            }
             else -> {
                 println("No menu matches")
                 start()
@@ -54,13 +64,13 @@ class App {
         val length = readLine()?.toInt() ?: 0
         print("Enter Width = ")
         val width = readLine()?.toInt() ?: 0
-        println("Area of Rectangle is = ${CalculateAreaUtils.calculateAreaRectangle(length, width)}")
+        printShape(Rectangle(length, width))
     }
 
     private fun openMenuCircle() {
         print("Enter Radius = ")
         val radius = readLine()?.toInt() ?: 0
-        println("Area of Circle is = ${CalculateAreaUtils.calculateAreaCircle(radius)}")
+        printShape(Circle(radius))
     }
 
     private fun openMenuTriangle() {
@@ -68,6 +78,19 @@ class App {
         val base = readLine()?.toInt() ?: 0
         print("Enter Height = ")
         val height = readLine()?.toInt() ?: 0
-        println("Area of Triangle is = ${CalculateAreaUtils.calculateAreaTriangle(base, height)}")
+        print("Enter Hypotenuse = ")
+        val hypotenuse = readLine()?.toInt() ?: 0
+        printShape(Triangle(base, height, hypotenuse))
+    }
+
+    private fun openMenuPrintStars() {
+        println("Enter Total Star (Max star = 20) = ")
+        val totalStar = readLine()?.toInt() ?: 0
+        starGeneratorUtils.printStar(totalStar)
+    }
+
+    private fun printShape(shape: Shape) {
+        shape.printShapeName()
+        shape.calculateAreaAndCircular()
     }
 }
